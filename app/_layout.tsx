@@ -1,20 +1,22 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
+import "react-native-reanimated";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomHeader from "@/components/CustomHeader"; // Adjust the path as needed
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    PlusJ: require("../assets/fonts/plusjakarta/PlusJakartaSans-Regular.ttf"),
+    "PlusJ-Bold": require("../assets/fonts/plusjakarta/PlusJakartaSans-Bold.ttf"),
+    "PlusJ-ExtraBold": require("../assets/fonts/plusjakarta/PlusJakartaSans-ExtraBold.ttf"),
+    "PlusJ-SemiBold": require("../assets/fonts/plusjakarta/PlusJakartaSans-SemiBold.ttf"),
   });
 
   useEffect(() => {
@@ -28,12 +30,36 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar style="auto" />
       <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(modals)/login"
+          options={{
+            headerShown: true,
+            presentation: "modal",
+            header: () => (
+              <CustomHeader Modalstyle={false} title="Log in or Sign up" />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="(listing)/[id]"
+          options={{
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="(modals)/booking"
+          options={{
+            presentation: "transparentModal",
+            header: () => <CustomHeader Modalstyle={true} title="Booking" />,
+          }}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </SafeAreaView>
   );
 }
