@@ -42,4 +42,13 @@ export const defaultStyles = StyleSheet.create({
     borderTopColor: Colors.grey,
     borderTopWidth: StyleSheet.hairlineWidth,
   },
+  shadow: {
+    shadowColor: "#000",
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    shadowOffset: {
+      width: 2,
+      height: 1,
+    },
+  },
 });

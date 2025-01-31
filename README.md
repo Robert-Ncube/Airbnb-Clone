@@ -48,3 +48,9 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## API SAMPLES
+
+Create and provide these API keys to the `.env` file after installing the node modules.
+
+- EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY = _Value_
