@@ -5,11 +5,15 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import CustomHeader from "@/components/CustomHeader"; // Adjust the path as needed
 import * as SecureStore from "expo-secure-store";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
+import "react-native-gesture-handler";
+import { enableFreeze } from "react-native-screens";
+
+enableFreeze(true);
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,7 +60,9 @@ export default function RootLayout() {
       publishableKey={CLERK_PUBLISHABLE_KEY!}
       tokenCache={tokenCache}
     >
-      <RootLayoutNav />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <RootLayoutNav />
+      </GestureHandlerRootView>
     </ClerkProvider>
   );
 }
@@ -87,12 +93,7 @@ function RootLayoutNav() {
             ),
           }}
         />
-        <Stack.Screen
-          name="(listing)/[id]"
-          options={{
-            headerTitle: "",
-          }}
-        />
+        <Stack.Screen name="(listing)/[id]" options={{ headerShown: false }} />
         <Stack.Screen
           name="(modals)/booking"
           options={{
