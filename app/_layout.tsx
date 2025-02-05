@@ -12,6 +12,9 @@ import * as SecureStore from "expo-secure-store";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import "react-native-gesture-handler";
 import { enableFreeze } from "react-native-screens";
+import { TouchableOpacity } from "react-native";
+import Colors from "@/constants/Colors";
+import ModalHeaderText from "@/components/ModalHeaderText";
 
 enableFreeze(true);
 
@@ -98,7 +101,23 @@ function RootLayoutNav() {
           name="(modals)/booking"
           options={{
             presentation: "transparentModal",
-            header: () => <CustomHeader Modalstyle={true} title="Booking" />,
+            animation: "fade",
+            headerTransparent: true,
+            headerTitle: (props) => <ModalHeaderText />,
+            headerLeft: () => (
+              <TouchableOpacity
+                onPress={() => router.back()}
+                style={{
+                  backgroundColor: "#fff",
+                  borderColor: Colors.grey,
+                  borderRadius: 20,
+                  borderWidth: 1,
+                  padding: 4,
+                }}
+              >
+                <Ionicons name="close-outline" size={22} />
+              </TouchableOpacity>
+            ),
           }}
         />
         <Stack.Screen name="+not-found" />
@@ -106,3 +125,4 @@ function RootLayoutNav() {
     </SafeAreaView>
   );
 }
+//header: () => <CustomHeader Modalstyle={true} title="Booking" />,
